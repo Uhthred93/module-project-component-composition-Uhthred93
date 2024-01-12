@@ -1,5 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import axios from 'axios'
+import { ThemeProvider } from 'styled-components'
+import { GlobalStyle, spaceTheme } from './Theme'
 import Header from './Header'
 import MainContent from './MainContent'
 import APODDetails from './APODDetails'
@@ -26,17 +28,25 @@ function App() {
       
   }, [])
 
-  if (isLoading) return <div>Loading...</div>
-  if (error) return <div>Error: {error.message}</div>
+  if (isLoading) {
+    return <div>Loading...</div>
+  }
+
+  if (error) {
+    return <div>Error: {error.message}</div>
+  }
 
   return (
-    <div className="App">
-      <Header />
-      <MainContent apodData={apodData} />
-      <APODDetails apodData={apodData} />
-      <Footer />
-    </div>
-  )
+      <ThemeProvider theme={spaceTheme}>
+        <GlobalStyle />
+        <div className="App">
+          <Header />
+          <MainContent apodData={apodData} />
+          <APODDetails apodData={apodData} />
+          <Footer />
+        </div>
+      </ThemeProvider>
+    )
 }
 
 export default App
